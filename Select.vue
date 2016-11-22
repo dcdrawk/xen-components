@@ -30,6 +30,7 @@
 <script>
   import { focus } from 'vue-focus'
   import { directive as onClickaway } from 'vue-clickaway'
+  import ScrollHelper from './classes/ScrollHelper'
 
   export default {
     // Directives
@@ -56,17 +57,17 @@
 
       openSelect () {
         this.open = true
-
+        ScrollHelper.disable()
         setTimeout(() => {
-          document.querySelector('.xen-page-content').classList.add('disable-scroll')
-          // document.querySelector('body').classList.add('disable-scroll')
           let optionHeight = this.dense ? 40 : 48
           let container = this.$refs.container
           let selectRect = this.$refs.select.getBoundingClientRect()
 
           let offset = this.selectedIndex * optionHeight
           let scrollOffset = this.selectedIndex > 4 ? (this.selectedIndex - 4) * optionHeight : 0
-          let totalYOffset = selectRect.top - offset - 19 + scrollOffset
+          // let totalYOffset = selectRect.top - offset - 19 + scrollOffset
+          let padding = this.dense ? 14 : 19
+          let totalYOffset = selectRect.top - offset - padding + scrollOffset
 
           // Check if it's within the bounds of the window
           if (totalYOffset < 8) {
@@ -85,25 +86,28 @@
 
       closeSelect () {
         this.open = false
-        document.querySelector('.xen-page-content').classList.remove('disable-scroll')
-        // document.querySelector('body').classList.remove('disable-scroll')
+        ScrollHelper.enable()
+        // document.querySelector('html').classList.remove('disable-scroll')
       },
 
       selectOption (option, key, index) {
         this.selectValue = this.optionKey ? option[this.optionKey] : option
         this.selectedIndex = index || key
         this.closeSelect()
+        ScrollHelper.enable()
       },
 
       getSelectedIndex () {
-        if (this.selectValue && this.options) {
-          this.options.forEach((item, index) => {
-            let option = this.optionKey ? item[this.optionKey] : item
-            if (option === this.selectValue) {
-              this.selectedIndex = index
-            }
-          })
-        }
+        setTimeout(() => {
+          if (this.selectValue && this.options) {
+            this.options.forEach((item, index) => {
+              let option = this.optionKey ? item[this.optionKey] : item
+              if (option === this.selectValue) {
+                this.selectedIndex = index
+              }
+            })
+          }
+        }, 0)
       }
     },
 

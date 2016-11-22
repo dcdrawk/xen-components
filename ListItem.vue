@@ -1,6 +1,6 @@
 <template>
   <div ref="target" >
-    <!-- <xen-ripple v-cloak> -->
+    <xen-ripple v-cloak>
       <div class="xen-list-item" :class="{ 'avatar': avatar, 'one-line': !secondaryText, 'two-line': secondaryText && !multiLine, 'multi-line': multiLine && secondaryText, 'bold': bold}">
         <span v-if="icon && avatar" class="xen-list-item-avatar">
           <i class="material-icons">{{ icon }}</i>
@@ -17,7 +17,7 @@
 
         <slot name="dropdown"></slot>
       </div>
-    <!-- </xen-ripple> -->
+    </xen-ripple>
   </div>
 </template>
 

@@ -243,6 +243,15 @@ table {
 
 }
 
+.xen-data-table {
+  .xen-select-container {
+    margin: 16px 0;
+  }
+  span {
+    text-align: left;
+  }
+}
+
 .xen-table-edit-backdrop {
   height: 100vh;
   left: 0;

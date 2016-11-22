@@ -29,7 +29,7 @@
             <td v-for="(column, index) in tableColumns" :data-title="[column.head]" :class="{ 'xen-first-col': index === 0, 'xen-editable': column.editable }" @click="editField($event, column.editable, row, column.key);">
               <span v-if="!column.options">{{row[column.key]}}</span>
               <div class="xen-column-options">
-                <xen-select :dense="true" v-if="column.options" :value="row[column.key]" :options="column.options">{{row[column.key]}}</xen-select>
+                <xen-select class="xen-color-primary" :dense="true" v-if="column.options" :value="row[column.key]" :options="column.options">{{row[column.key]}}</xen-select>
               </div>
               <i class="material-icons xen-table-edit-icon" v-if="column.editable">edit</i>
             </td>
@@ -44,10 +44,10 @@
       </table>
       <transition name="fade">
         <div ref="editor" v-show="editing" class="xen-data-table-edit-container">
-          <xen-input ref="editinput" :value="editValue" :focus="true" @keyup.native.enter="saveEdit(editValue)" @keyup.native.esc="cancelEdit()" @input="editValue = $event"></xen-input>
+          <xen-input class="xen-color-primary" ref="editinput" :value="editValue" :focus="true" @keyup.native.enter="saveEdit(editValue)" @keyup.native.esc="cancelEdit()" @input="editValue = $event"></xen-input>
           <div class="xen-edit-buttons">
-            <xen-button class="cancel" :primary="true" @click.native="cancelEdit()">cancel</xen-button>
-            <xen-button class="save" :primary="true" @click.native="saveEdit(editValue)">save</xen-button>
+            <xen-button class="cancel" @click.native="cancelEdit()">cancel</xen-button>
+            <xen-button class="save xen-color-primary"  @click.native="saveEdit(editValue)">save</xen-button>
           </div>
         </div>
       </transition>

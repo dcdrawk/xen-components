@@ -1,6 +1,6 @@
 <template>
   <div class="xen-input-container" v-bind:class="{ 'has-value': inputValue, 'focus': focused, 'has-error-msg': errors.has(name), 'xen-disabled': disabled }">
-    <label :class="{ 'xen-color-red': errors.has(name) }" v-if="label">{{label}}</label>
+    <label :class="{ 'xen-color-red': errors.has(name)}" v-if="label">{{label}}</label>
     <div v-if="rules">
       <input ref="input" v-model="inputValue" v-focus="focused" @focus="focused = true" @blur="focused = false" :placeholder="placeholder" :name="name" v-if="type === 'text' || !type" type="text" v-validate :data-rules="rules ? rules : 'required'" :disabled="disabled"/>
       <input ref="input" v-model="inputValue" v-focus="focused" @focus="focused = true" @blur="focused = false" :placeholder="placeholder" :name="name" v-if="type === 'number'" type="number" v-validate :data-rules="rules ? rules : 'required'" :disabled="disabled"/>
@@ -11,8 +11,8 @@
       <input ref="input" v-model="inputValue" v-focus="focused" @focus="focused = true" @blur="focused = false" :placeholder="placeholder" :name="name" v-if="type === 'number'" type="number" :disabled="disabled"/>
       <input ref="input" v-model="inputValue" v-focus="focused" @focus="focused = true" @blur="focused = false" :placeholder="placeholder" :name="name" v-if="type === 'password'" type="password" :disabled="disabled"/>
     </div>
-    <span v-show="errors.has(name)" class="xen-input-error xen-color-red">{{ errors.first(name) }}</span>
-    <div class="xen-input-border" :class="{ 'xen-theme-red': errors.has(name) }" ></div>
+    <span v-if="errors" class="xen-input-error xen-color-red">{{ errors.first(name) }}</span>
+    <div v-if="errors" class="xen-input-border" :class="{ 'xen-theme-red': errors.has(name) }" ></div>
   </div>
 </template>
 
@@ -41,6 +41,7 @@
       'placeholder',
       'rules',
       'disabled'
+      // 'errors'
     ],
 
     // Data
@@ -53,7 +54,8 @@
 
     // Mounted
     mounted () {
-      // console.log('hey')
+      console.log(this)
+      console.log('hey')
       this.$bus.$on('xen-validate', () => {
         setTimeout(() => {
           this.$validator.validateAll()
