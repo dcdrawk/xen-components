@@ -4,7 +4,6 @@ class ScrollHelper {
 
   static toggle () {
     this.disableScroll = !this.disableScroll
-    console.log('toggle')
     if (this.disableScroll) {
       this.scrollTop = document.body.scrollTop
       document.body.style.position = 'relative'
@@ -25,11 +24,13 @@ class ScrollHelper {
   }
 
   static disable () {
-    this.disableScroll = true
-    this.scrollTop = document.body.scrollTop
-    document.body.style.position = 'relative'
-    document.querySelector('html').classList.add('disable-scroll')
-    document.body.style.top = this.scrollTop * -1 + 'px'
+    if (document.body.clientHeight + 56 > window.innerHeight) {
+      this.disableScroll = true
+      this.scrollTop = document.body.scrollTop
+      document.body.style.position = 'relative'
+      document.querySelector('html').classList.add('disable-scroll')
+      document.body.style.top = this.scrollTop * -1 + 'px'
+    }
   }
 }
 

@@ -3,8 +3,8 @@
 
 .xen-select-container {
   position: relative;
-  margin: 32px 0 16px 0;
-  height: 30px;  
+  margin: 0 0 32px 0;
+  height: 30px;
   &.xen-no-margin {
     margin: 0;
   }
@@ -16,8 +16,8 @@
     height: 1px;
     position: absolute;
     background-color: rgba(0, 0, 0, .12);
-    // background-color: currentColor;
     bottom: 3px;
+    left: 0;
 
     &.xen-theme-red {
       background-color: $clr-red;
@@ -33,13 +33,14 @@
     color: rgba(0, 0, 0, .54);
     pointer-events: none;
     font-size: 16px;
+    top: 4px;
+    transform-origin: 0%;
   }
 
   &.has-value {
 
     label {
-      transform: translateY(-24px);
-      font-size: 12px;
+      transform: translateY(-20px) translateX(0px) scale(.75);
     }
   }
 
@@ -75,14 +76,10 @@
 .xen-select {
   align-items: center;
   display: inline-flex;
-  // padding: 4px 4px;
   cursor: pointer;
   font-size: 16px;
   width: 100%;
   text-overflow: ellipsis;
-  // border-width: 0 0 1px;
-  // border-style: solid;
-  // border-color: rgba(0, 0, 0, .12);
   height: 28px;
   overflow-x: hidden;
   
@@ -106,7 +103,6 @@
 .xen-select-option-container {
   @extend .whiteframe-z2;
   position: fixed;
-  // left: -12px;
   left: 0;
   top: 0;
   z-index: 10;
@@ -115,7 +111,6 @@
   min-height: 48px;
   max-height: 256px;
   overflow: auto;
-  // width: 100%;
   transform-origin: 50%;
 }
 

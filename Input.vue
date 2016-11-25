@@ -3,12 +3,12 @@
     <label :class="{ 'xen-color-red': errors.has(name)}" v-if="label">{{label}}</label>
     <div v-if="rules">
       <input ref="input" v-model="inputValue" v-focus="focused" @focus="focused = true" @blur="focused = false" :placeholder="placeholder" :name="name" v-if="type === 'text' || !type" type="text" v-validate :data-rules="rules ? rules : 'required'" :disabled="disabled"/>
-      <input ref="input" v-model="inputValue" v-focus="focused" @focus="focused = true" @blur="focused = false" :placeholder="placeholder" :name="name" v-if="type === 'number'" type="number" v-validate :data-rules="rules ? rules : 'required'" :disabled="disabled"/>
+      <input ref="input" v-model="inputValue" v-focus="focused" @focus="focused = true" @blur="focused = false" :placeholder="placeholder" :name="name" v-if="type === 'number'" type="number" v-validate :data-rules="rules ? rules : 'required'" :disabled="disabled" number/>
       <input ref="input" v-model="inputValue" v-focus="focused" @focus="focused = true" @blur="focused = false" :placeholder="placeholder" :name="name" v-if="type === 'password'" type="password" v-validate :data-rules="rules ? rules : 'required'" :disabled="disabled"/>
     </div>
     <div v-else>
       <input ref="input" v-model="inputValue" v-focus="focused" @focus="focused = true" @blur="focused = false" :placeholder="placeholder" :name="name" v-if="type === 'text' || !type" type="text" :disabled="disabled"/>
-      <input ref="input" v-model="inputValue" v-focus="focused" @focus="focused = true" @blur="focused = false" :placeholder="placeholder" :name="name" v-if="type === 'number'" type="number" :disabled="disabled"/>
+      <input ref="input" v-model="inputValue" v-focus="focused" @focus="focused = true" @blur="focused = false" :placeholder="placeholder" :name="name" v-if="type === 'number'" type="number" :disabled="disabled" number/>
       <input ref="input" v-model="inputValue" v-focus="focused" @focus="focused = true" @blur="focused = false" :placeholder="placeholder" :name="name" v-if="type === 'password'" type="password" :disabled="disabled"/>
     </div>
     <span v-if="errors" class="xen-input-error xen-color-red">{{ errors.first(name) }}</span>
@@ -48,14 +48,17 @@
     data () {
       return {
         focused: false,
-        inputValue: this.value || ''
+        inputValue: undefined
       }
     },
 
     // Mounted
     mounted () {
-      console.log(this)
-      console.log('hey')
+      console.log(this.value)
+      if (this.value || this.value === 0) {
+        this.inputValue = this.type === 'number' ? window.parseInt(this.value) : this.value
+        console.log(this.value)
+      }
       this.$bus.$on('xen-validate', () => {
         setTimeout(() => {
           this.$validator.validateAll()
@@ -83,6 +86,8 @@
       },
       'value': {
         handler: function (val, oldVal) {
+          console.log('value changed', val)
+          this.inputValue = this.type === 'number' ? window.parseInt(this.value) : this.value
           this.inputValue = val
         }
       }

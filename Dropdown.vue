@@ -74,6 +74,7 @@
     // Mounted
     mounted () {
       this.totalHeight = this.$refs.container.clientHeight
+      this.setPosition()
     },
 
     // Watch

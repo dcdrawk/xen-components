@@ -58,7 +58,9 @@
       openSelect () {
         this.open = true
         ScrollHelper.disable()
+        document.body.appendChild(this.$refs.container)
         setTimeout(() => {
+          this.$refs.container.style.width = this.$refs.select.clientWidth + 16 + 'px'
           let optionHeight = this.dense ? 40 : 48
           let container = this.$refs.container
           let selectRect = this.$refs.select.getBoundingClientRect()
@@ -87,6 +89,9 @@
       closeSelect () {
         this.open = false
         ScrollHelper.enable()
+        setTimeout(() => {
+          document.body.removeChild(this.$refs.container)
+        }, 300)
         // document.querySelector('html').classList.remove('disable-scroll')
       },
 
@@ -134,7 +139,9 @@
     watch: {
       'selectValue': {
         handler: function (val, oldVal) {
-          this.$emit('input', this.selectValue)
+          if (val) {
+            this.$emit('input', this.selectValue)
+          }
         }
       },
       'value': {
@@ -142,6 +149,14 @@
           this.selectValue = val
           if (val === undefined) {
             this.selectedIndex = 0
+          }
+          // this.$emit('input', this.selectValue)
+        }
+      },
+      'options': {
+        handler: function (val, oldVal) {
+          if (this.value) {
+            this.getSelectedIndex()
           }
           // this.$emit('input', this.selectValue)
         }

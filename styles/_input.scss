@@ -40,10 +40,10 @@
     // }
   }
 
-  textarea {
-    margin-bottom: 0;
+  input {
+    height: 28px;
   }
-
+  
   input,
   textarea {
     background-color: transparent;
@@ -92,6 +92,24 @@
 
   }
 
+}
+
+.xen-textarea {
+  margin-bottom: 0px;
+//   .xen-input-border {
+//     position: relative;
+//     display: none;
+//   }
+//   textarea {
+//     border-bottom: 1px solid rgba(0, 0, 0, .12);;
+//   }
+//   &.focus {
+//     // margin-bottom: -4px;
+//     textarea {
+//       border-bottom: 2px solid #000;
+//       margin-bottom: 15px;
+//     }
+//   }
 }
 
 .xen-input-container.xen-disabled {

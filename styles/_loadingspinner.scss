@@ -20,6 +20,8 @@
   left: 0;
   right: 0;
   margin: auto;
+  backface-visibility: hidden;
+  perspective: 1000;
 }
 
 .path {

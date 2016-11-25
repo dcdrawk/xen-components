@@ -1,7 +1,7 @@
 <template>
   <div class="xen-dialog-container" :class="{ 'show': show, 'show-overflow': overflow }">
     <transition name="fade">
-      <div class="xen-dialog-backdrop" @click="hideDialog();" v-if="show"></div>
+      <div ref="backdrop" class="xen-dialog-backdrop" @click="hideDialog();" v-show="show"></div>
     </transition>
 
     <!-- Dialog -->
@@ -13,7 +13,9 @@
 
         <!-- Dialog Content -->
         <div class="xen-dialog-content" :class="{ 'show-overflow': overflow }">
-          <slot name="default"></slot>
+          <div>
+            <slot name="default"></slot>
+          </div>
         </div>
 
         <!-- Dialog Actions -->
@@ -40,6 +42,7 @@
   import MaterialButton from './Button.vue'
   import MaterialCard from './Card.vue'
   import Toolbar from './Toolbar.vue'
+  // import gsap from 'gsap'
 
   export default {
     // Name
@@ -67,7 +70,26 @@
     // Methods
     methods: {
       hideDialog () {
+        // console.log(gsap)
         this.$emit('hide')
+      }
+
+      // showDialog () {
+      //   console.dir(this.$refs.backdrop)
+      //   gsap.TweenLite.to(this.$refs.backdrop, 0.375, { opacity: 1, ease: gsap.Power1.easeOut })
+      // }
+    },
+
+    // Watch
+    watch: {
+      'show': {
+        handler: function (val, oldVal) {
+          // if (val) {
+          //   // this.showDialog()
+          // } else {
+          //   this.hideDialog()
+          // }
+        }
       }
     }
 

@@ -1,8 +1,8 @@
 <template>
-  <div class="xen-input-container" v-bind:class="{ 'has-value': inputValue, 'focus': focused }">
+  <div class="xen-input-container xen-textarea" v-bind:class="{ 'has-value': inputValue, 'focus': focused }">
     <label>{{label}}</label>
     <textarea ref="textarea" v-model="inputValue" v-focus="focused" @focus="focused = true" @blur="focused = false" :placeholder="placeholder" :rows="rows"></textarea>
-    <div class="xen-input-border"></div>
+    <div ref="border" class="xen-input-border"></div>
   </div>
 </template>
 
@@ -43,7 +43,9 @@
       auto_grow () {
         var element = this.$refs.textarea
         element.style.height = '16px'
-        element.style.height = (element.scrollHeight + 21) + 'px'
+        element.style.height = (element.scrollHeight + 19.9) + 'px'
+        // this.$refs.border.style.position = 'relative'
+        this.$refs.border.style.top = (element.scrollHeight + 3) + 'px'
       }
     },
 
