@@ -23,6 +23,8 @@
 <script>
   import { focus } from 'vue-focus'
   import { find, propEq } from 'ramda'
+  import debounce from 'debounce'
+
   export default {
 
     // Directives
@@ -40,7 +42,8 @@
       'model',
       'placeholder',
       'rules',
-      'disabled'
+      'disabled',
+      'debounce'
       // 'errors'
     ],
 
@@ -54,10 +57,8 @@
 
     // Mounted
     mounted () {
-      console.log(this.value)
       if (this.value || this.value === 0) {
         this.inputValue = this.type === 'number' ? window.parseInt(this.value) : this.value
-        console.log(this.value)
       }
       this.$bus.$on('xen-validate', () => {
         setTimeout(() => {
@@ -77,17 +78,49 @@
       })
     },
 
+    created () {
+      this.handleInputChange = debounce(this.handleInputChange, this.debounce || 0)
+    },
+
+    methods: {
+      handleInputChange () {
+        this.$emit('input', this.inputValue)
+      }
+        // _.debounce(function () {
+        // console.log('dwjiaodjawidjia')
+        // this.$emit('input', this.inputValue)
+        // }, 1000)
+      // }
+      // handleInputChange: _.debounce(function () {
+      //   this.$emit('input', this.inputValue)
+      // }, debounce)
+    },
+
     // Watch
     watch: {
       'inputValue': {
         handler: function (val, oldVal) {
-          this.$emit('input', this.inputValue)
+          console.log('input value...')
+          console.log(val, this.value, oldVal)
+          if (val !== this.value || oldVal) {
+            // _.throttle(this.handleInputChange, 1000)
+            this.handleInputChange()
+            // _.debounce(function () {
+      //   console.log('handle change')
+      //   this.$emit('input', this.inputValue)
+      // }, 500)
+            // _.debounce(function () {
+            //   this.handleInputChange()
+            // }, 500)
+            // _.debounce(() => {
+            //   console.log('djiowajdio')
+            // }, 1000)
+          }
         }
       },
       'value': {
         handler: function (val, oldVal) {
-          console.log('value changed', val)
-          this.inputValue = this.type === 'number' ? window.parseInt(this.value) : this.value
+          // this.inputValue = this.type === 'number' ? window.parseInt(this.value) : this.value
           this.inputValue = val
         }
       }

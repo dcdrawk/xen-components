@@ -12,11 +12,11 @@
       margin: 0;
     }
 
+    p:last-of-type {
+      margin-bottom: 0;
+    }
   }
 
-  p:last-of-type {
-    margin-bottom: 0;
-  }
 </style>
 
 <script>

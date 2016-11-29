@@ -130,9 +130,7 @@
       },
 
       toggleSelect () {
-        console.log('toggle select')
         this.$nextTick(() => {
-          console.log(this.selectAll)
           this.tableRows.forEach((item, index) => {
             if (this.selectAll) {
               console.log(this.$refs.checkboxes[index])

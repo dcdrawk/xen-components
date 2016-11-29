@@ -53,7 +53,9 @@
     watch: {
       'inputValue': {
         handler: function (val, oldVal) {
-          this.$emit('input', this.inputValue)
+          if (val !== this.value || oldVal) {
+            this.$emit('input', this.inputValue)
+          }
         }
       },
       'value': {

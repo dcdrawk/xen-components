@@ -9,7 +9,7 @@
       <div class="xen-dialog" v-if="show" :class="{ 'small': small, 'medium': medium, 'large': large, 'has-actions': $slots.actions, 'fullscreen': fullscreen }">
 
         <!-- Dialog Title -->
-        <h3 class="xen-dialog-title title">{{ title }}</h3>
+        <h3 class="xen-dialog-title title" :class="{ 'xen-theme-primary': primary }">{{ title }}</h3>
 
         <!-- Dialog Content -->
         <div class="xen-dialog-content" :class="{ 'show-overflow': overflow }">
@@ -42,6 +42,7 @@
   import MaterialButton from './Button.vue'
   import MaterialCard from './Card.vue'
   import Toolbar from './Toolbar.vue'
+  import ScrollHelper from './classes/ScrollHelper'
   // import gsap from 'gsap'
 
   export default {
@@ -64,31 +65,34 @@
       'medium',
       'large',
       'overflow',
-      'fullscreen'
+      'fullscreen',
+      'primary'
     ],
+
+    mounted () {
+      window.onpopstate = (event) => {
+        if (this.show) {
+          this.hideDialog()
+        }
+      }
+    },
 
     // Methods
     methods: {
       hideDialog () {
-        // console.log(gsap)
         this.$emit('hide')
       }
-
-      // showDialog () {
-      //   console.dir(this.$refs.backdrop)
-      //   gsap.TweenLite.to(this.$refs.backdrop, 0.375, { opacity: 1, ease: gsap.Power1.easeOut })
-      // }
     },
 
     // Watch
     watch: {
       'show': {
         handler: function (val, oldVal) {
-          // if (val) {
-          //   // this.showDialog()
-          // } else {
-          //   this.hideDialog()
-          // }
+          if (val) {
+            ScrollHelper.disable()
+          } else {
+            ScrollHelper.enable()
+          }
         }
       }
     }

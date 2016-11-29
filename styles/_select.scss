@@ -8,6 +8,7 @@
   &.xen-no-margin {
     margin: 0;
   }
+
   span {    
     color: $primary-text;
   }
@@ -141,5 +142,14 @@
 .xen-select-container.focus {
   label {
     color: currentColor;
+  }
+}
+
+.disabled {
+  opacity: .75;
+  pointer-events: none;
+  .xen-input-border {
+    background-color: transparent;
+    border-bottom: 1px dashed rgba(0,0,0,.24);
   }
 }

@@ -24,7 +24,7 @@ class ScrollHelper {
   }
 
   static disable () {
-    if (document.body.clientHeight + 56 > window.innerHeight) {
+    if (document.body.scrollHeight > window.innerHeight) {
       this.disableScroll = true
       this.scrollTop = document.body.scrollTop
       document.body.style.position = 'relative'

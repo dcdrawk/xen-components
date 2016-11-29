@@ -29,37 +29,55 @@
     data () {
       return {
         focused: false,
-        value: ''
+        value: '',
+        chipValues: this.chips || []
       }
     },
 
     // Mounted
     mounted () {
-      if (!this.chips) {
-        this.chips = []
-      }
+      // if (!this.chipValues) {
+      //   this.chipValues = []
+      // }
     },
 
     // Methods
     methods: {
       // Add a chip
       addChip (value) {
-        if (!this.chips.includes(value) && value.length > 0) {
-          this.chips.push(value)
+        if (!this.chipValues.includes(value) && value.length > 0) {
+          this.chipValues.push(value)
         }
         this.value = ''
       },
 
       // Remove a chip
       removeChip (index) {
-        this.chips.splice(index, 1)
+        this.chipValues.splice(index, 1)
       },
 
       // If the value is empty, remove the last chip
       removeLastChip (value) {
         console.log(value)
         if (value.length === 0) {
-          this.chips.pop()
+          this.chipValues.pop()
+        }
+      }
+    },
+
+    // Watch
+    watch: {
+      'chipValues': {
+        handler: function (val, oldVal) {
+          if (val !== this.chips || oldVal) {
+            this.$emit('input', this.chipValues)
+          }
+        }
+      },
+      'chips': {
+        handler: function (val, oldVal) {
+          // this.inputValue = this.type === 'number' ? window.parseInt(this.value) : this.value
+          this.chipValues = val
         }
       }
     }

@@ -75,6 +75,11 @@ table {
     text-align: right;
   }
 
+  .xen-padding {    
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+
   td,
   th {
     border-left: none;
@@ -82,8 +87,20 @@ table {
     border-top: none;
     padding-right: 56px;
     user-select: none;
+    padding-top: 12px;
+    padding-bottom: 12px;
     &.text-center {
       text-align: center;
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+    &.text-right {
+      text-align: right;
+      padding-left: 8px;
+    }
+    &.text-left {
+      text-align: left;
+      padding-right: 8px;
     }
   }
 
