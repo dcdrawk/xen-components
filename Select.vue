@@ -98,21 +98,29 @@
 
       selectOption (option, key, index) {
         this.selectValue = this.optionKey ? option[this.optionKey] : option
-        this.selectedIndex = index || key
+        // this.selectedIndex = index || key
+        this.selectedIndex = index || index === 0 ? index : key
         this.closeSelect()
         ScrollHelper.enable()
       },
 
       getSelectedIndex () {
         setTimeout(() => {
-          if (this.selectValue && this.options) {
-            this.options.forEach((item, index) => {
+        // this.$nextTick(() => {
+          if (this.selectValue && this.options && typeof (this.selectValue) !== 'undefined' && typeof (this.options) !== 'undefined') {
+            // this.options.forEach((item, index) => {
+            let index = 0
+            for (let i in this.options) {
+              let item = this.options[i]
               let option = this.optionKey ? item[this.optionKey] : item
               if (option === this.selectValue) {
                 this.selectedIndex = index
               }
-            })
+              index++
+            }
+            // })
           }
+        // })
         }, 0)
       }
     },

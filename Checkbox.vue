@@ -53,7 +53,6 @@
       'value': {
         handler: function (val, oldVal) {
           this.checkboxValue = val
-          this.$emit('input', this.checkboxValue)
         }
       }
     }
