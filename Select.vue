@@ -1,5 +1,5 @@
 <template>
-  <div class="xen-select-container" v-bind:class="{ 'has-value': selectValue, 'xen-dense': dense, 'focus': focused, 'disabled': disabled}" v-on-clickaway="away">    
+  <div class="xen-select-container" v-bind:class="{ 'has-value': selectValue, 'xen-dense': dense, 'focus': focused, 'disabled': disabled}" v-on-clickaway="away">
     <div ref="select" class="xen-select" @click="openSelect(); focused = true">
       <label v-if="label">{{label}}</label>
         <span v-if="selectValue">{{selectValue}}</span>

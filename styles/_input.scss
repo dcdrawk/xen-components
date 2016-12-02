@@ -6,7 +6,6 @@
   position: relative;
   width: 100%;
   margin-bottom: 16px;
-  
   &.has-error-msg {
     margin-bottom: 32px;
   }
@@ -43,7 +42,6 @@
   input {
     height: 28px;
   }
-  
   input,
   textarea {
     background-color: transparent;
@@ -137,4 +135,13 @@
   position: absolute;
   font-size: 12px;
   bottom: -4px;
+}
+
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
 }

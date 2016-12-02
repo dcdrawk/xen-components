@@ -1,5 +1,5 @@
 <template>
-  <div class="xen-input-container" v-bind:class="{ 'has-value': inputValue, 'focus': focused, 'has-error-msg': errors.has(name), 'xen-disabled': disabled }">
+  <div class="xen-input-container" v-bind:class="{ 'has-value': inputValue || inputValue === 0, 'focus': focused, 'has-error-msg': errors.has(name), 'xen-disabled': disabled }">
     <label :class="{ 'xen-color-red': errors.has(name)}" v-if="label">{{label}}</label>
     <div v-if="rules">
       <input ref="input" v-model="inputValue" v-focus="focused" @focus="focused = true" @blur="focused = false" :placeholder="placeholder" :name="name" v-if="type === 'text' || !type" type="text" v-validate :data-rules="rules ? rules : 'required'" :disabled="disabled"/>
@@ -44,7 +44,6 @@
       'rules',
       'disabled',
       'debounce'
-      // 'errors'
     ],
 
     // Data
@@ -84,7 +83,7 @@
 
     methods: {
       handleInputChange () {
-        console.log('handle that change!')
+        // console.log('handle that change!')
         this.$emit('input', this.inputValue)
       }
     },
@@ -95,7 +94,7 @@
         handler: function (val, oldVal) {
           // console.log(val, oldVal, this.value)
           // console.log(val === '')
-          if (val || val === '' || !isNaN(val)) {
+          if (val || val === '' || typeof (val) === 'undefined' || !isNaN(val)) {
             if (val !== this.value || oldVal) {
               // console.log('input has changed...')
               this.handleInputChange()
@@ -105,7 +104,8 @@
       },
       'value': {
         handler: function (val, oldVal) {
-          if (!isNaN(val)) {
+          // console.log(val, oldVal)
+          if (typeof (val) === 'string' || typeof (val) === 'undefined' || !isNaN(val)) {
             this.inputValue = val
           }
         }
