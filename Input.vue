@@ -67,9 +67,14 @@
 
       // Watch for errors
       this.$watch(() => this.errors.errors, (newValue, oldValue) => {
-        const newErrors = newValue.filter(error =>
+        const newErrors = newValue.filter(error => {
+          if (error.msg === 'The confirm password is required.') {
+            error.msg = 'Confirm password is required'
+          } else if (error.msg === 'The confirm password does not match the password.') {
+            error.msg = 'Passwords must match'
+          }
           find(propEq('field', error.field))(oldValue) === undefined
-        )
+        })
         const oldErrors = oldValue.filter(error =>
           find(propEq('field', error.field))(newValue) === undefined
         )

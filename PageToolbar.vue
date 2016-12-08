@@ -22,9 +22,15 @@
     margin-right: 16px;
   }
 
+  .xen-toolbar {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   .title {
     vertical-align: middle;
     line-height: 1.2;
+    white-space: nowrap;
   }
 </style>
 
