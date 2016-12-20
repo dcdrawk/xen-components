@@ -56,7 +56,7 @@
 
     // Mounted
     mounted () {
-      console.log('mounted...')
+      // console.log('mounted...')
       // console.log(this.rules)
       if (this.value || this.value === 0) {
         this.inputValue = this.type === 'number' ? window.parseInt(this.value) : this.value

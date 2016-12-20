@@ -1,8 +1,8 @@
 <template>
-  <div class="xen-input-container xen-textarea" v-bind:class="{ 'has-value': inputValue, 'focus': focused }">
+  <div class="xen-input-container xen-textarea" v-bind:class="{ 'has-value': inputValue, 'focus': focused, 'xen-disabled': disabled }">
     <label>{{label}}</label>
-    <textarea ref="textarea" v-model="inputValue" v-focus="focused" @focus="focused = true" @blur="focused = false" :placeholder="placeholder" :rows="rows"></textarea>
-    <div ref="border" class="xen-input-border"></div>
+    <textarea ref="textarea" v-model="inputValue" v-focus="focused" @focus="focused = true" @blur="focused = false" :placeholder="placeholder" :rows="rows" :disabled="disabled"></textarea>
+    <!--<div ref="border" class="xen-input-border"></div>-->
   </div>
 </template>
 
@@ -27,21 +27,20 @@
       'model',
       'placeholder',
       'rows',
-      'autoGrow'
+      'autoGrow',
+      'disabled'
     ],
 
     // Data
     data () {
       return {
+        textRows: 0,
         focused: false,
         inputValue: this.value || ''
       }
     },
 
     mounted () {
-      console.log('text-area mounted')
-      var element = this.$refs.textarea
-      console.dir(element)
       if (typeof this.autoGrow === 'undefined' || this.autoGrow !== false) {
         this.auto_grow()
       }
@@ -51,23 +50,12 @@
     methods: {
       auto_grow () {
         this.$nextTick(() => {
-          setTimeout(() => {
-            console.log('auto grow')
-            var element = this.$refs.textarea
-            console.dir(element)
-            console.log(element.value)
-            console.log(element.scrollHeight)
-            element.style.height = '16px'
-
-            if (element.scrollHeight === 0) {
-              element.style.display = 'block'
-            }
-
-            let height = element.scrollHeight === 0 ? 46.67 : element.scrollHeight
-            element.style.height = (height + 19.9) + 'px'
-            // this.$refs.border.style.position = 'relative'
-            this.$refs.border.style.top = (height + 3) + 'px'
-          }, 1000)
+          var element = this.$refs.textarea
+          if (element.scrollHeight === 0) {
+            element.style.display = 'block'
+          }
+          element.style.height = 'auto'
+          element.style.height = (element.scrollHeight) + 0.67 + 'px'
         })
       }
     },
@@ -87,7 +75,7 @@
       'value': {
         handler: function (val, oldVal) {
           this.inputValue = val
-          console.log('text area value changed')
+          // console.log('text area value changed')
           if (typeof this.autoGrow === 'undefined' || this.autoGrow !== false) {
             this.auto_grow()
           }
