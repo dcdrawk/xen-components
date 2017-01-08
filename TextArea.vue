@@ -1,7 +1,9 @@
 <template>
-  <div class="xen-input-container xen-textarea" v-bind:class="{ 'has-value': inputValue, 'focus': focused, 'xen-disabled': disabled }">
+  <div ref="container" class="xen-input-container xen-textarea" v-bind:class="{ 'has-value': inputValue, 'focus': focused, 'xen-disabled': disabled }">
     <label>{{label}}</label>
-    <textarea ref="textarea" v-model="inputValue" v-focus="focused" @focus="focused = true" @blur="focused = false" :placeholder="placeholder" :rows="rows" :disabled="disabled"></textarea>
+    <div ref="autosize">
+      <textarea ref="textarea" v-model="inputValue" v-focus="focused" @focus="focused = true" @blur="focused = false" :placeholder="placeholder" :rows="rows" :disabled="disabled"></textarea>
+    </div>
     <!--<div ref="border" class="xen-input-border"></div>-->
   </div>
 </template>
@@ -10,77 +12,85 @@
   @import './styles/input';
 </style>
 <script>
-  import { focus } from 'vue-focus'
+import autosize from 'autosize'
+import { focus } from 'vue-focus'
 
-  export default {
-    // Directives
-    directives: { focus: focus },
+export default {
+  // Directives
+  directives: { focus: focus },
 
-    // Name
-    name: 'xen-textarea',
+  // Name
+  name: 'xen-textarea',
 
-    // Props
-    props: [
-      'label',
-      'value',
-      'type',
-      'model',
-      'placeholder',
-      'rows',
-      'autoGrow',
-      'disabled'
-    ],
+  // Props
+  props: [
+    'label',
+    'value',
+    'type',
+    'model',
+    'placeholder',
+    'rows',
+    'autoGrow',
+    'disabled'
+  ],
 
-    // Data
-    data () {
-      return {
-        textRows: 0,
-        focused: false,
-        inputValue: this.value || ''
-      }
-    },
+  // Data
+  data () {
+    return {
+      textRows: 0,
+      focused: false,
+      inputValue: this.value || ''
+    }
+  },
 
-    mounted () {
-      if (typeof this.autoGrow === 'undefined' || this.autoGrow !== false) {
-        this.auto_grow()
-      }
-    },
+  mounted () {
+    if (typeof this.autoGrow === 'undefined' || this.autoGrow !== false) {
+      this.autosize()
+    }
 
-    // Methods
-    methods: {
-      auto_grow () {
-        this.$nextTick(() => {
-          var element = this.$refs.textarea
-          if (element.scrollHeight === 0) {
-            element.style.display = 'block'
-          }
-          element.style.height = 'auto'
-          element.style.height = (element.scrollHeight) + 0.67 + 'px'
-        })
-      }
-    },
+    this.$bus.$on('autosize', () => {
+      setTimeout(() => {
+        var ta = this.$refs.textarea
+        let evt = document.createEvent('Event')
+        evt.initEvent('autosize:update', true, false)
+        if (ta) {
+          ta.dispatchEvent(evt)
+        }
+      }, 0)
+    })
+  },
 
-    // Watch
-    watch: {
-      'inputValue': {
-        handler: function (val, oldVal) {
-          if (val || val === '' || !isNaN(val)) {
-            if (val !== this.value || oldVal) {
-              this.auto_grow()
-              this.$emit('input', this.inputValue)
-            }
+  // Methods
+  methods: {
+    autosize () {
+      setTimeout(() => {
+        autosize(this.$refs.autosize.childNodes)
+      }, 0)
+    }
+  },
+
+  // Watch
+  watch: {
+    'inputValue': {
+      handler: function (val, oldVal) {
+        if (val || val === '' || !isNaN(val)) {
+          if (val !== this.value || oldVal) {
+            // this.autosize()
+            this.$emit('input', this.inputValue)
           }
         }
-      },
-      'value': {
-        handler: function (val, oldVal) {
-          this.inputValue = val
-          // console.log('text area value changed')
-          if (typeof this.autoGrow === 'undefined' || this.autoGrow !== false) {
-            this.auto_grow()
-          }
+      }
+    },
+    'value': {
+      handler: function (val, oldVal) {
+        this.inputValue = val
+        if (typeof this.autoGrow === 'undefined' || this.autoGrow !== false) {
+          setTimeout(() => {
+            this.autosize()
+          }, 0)
         }
       }
     }
   }
+}
 </script>

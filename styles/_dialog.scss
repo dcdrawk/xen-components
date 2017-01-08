@@ -53,10 +53,14 @@
     }
 
     .xen-dialog-title {
-      padding: 24px 24px 20px 24px;
+      padding: 12px 12px 8px 12px;
       // padding: 0;
       // background-color: #fafafa;
 
+    }
+
+    span {
+      vertical-align: middle;
     }
 
     &.dialog-enter-active,

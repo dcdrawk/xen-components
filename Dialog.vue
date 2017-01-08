@@ -1,15 +1,21 @@
 <template>
-  <div class="xen-dialog-container" :class="{ 'show': show, 'show-overflow': overflow }">
+  <div class="xen-dialog-container" :class="{ 'show': showDialog, 'show-overflow': overflow }">
     <transition name="fade">
-      <div ref="backdrop" class="xen-dialog-backdrop" @click="hideDialog();" v-show="show"></div>
+      <div ref="backdrop" class="xen-dialog-backdrop" @click="hideDialog();" v-show="showDialog"></div>
     </transition>
 
     <!-- Dialog -->
     <transition name="dialog">
-      <div class="xen-dialog" v-if="show" :class="{ 'small': small, 'medium': medium, 'large': large, 'has-actions': $slots.actions, 'fullscreen': fullscreen }">
+      <div class="xen-dialog" v-if="showDialog" :class="{ 'small': small, 'medium': medium, 'large': large, 'has-actions': $slots.actions, 'fullscreen': fullscreen }">
 
-        <!-- Dialog Title -->
-        <h3 class="xen-dialog-title title" :class="{ 'xen-theme-primary': primary }">{{ title }}</h3>
+
+        <h3 class="xen-dialog-title title" :class="{ 'xen-theme-primary': primary }">
+          <!-- Dialog Title -->
+          <xen-button class="xen-dialog-back" @click.native="$bus.$emit('back')">
+            <i class="material-icons">keyboard_arrow_left</i>
+          </xen-button>
+          <span>{{ title }}</span>
+        </h3>
 
         <!-- Dialog Content -->
         <div class="xen-dialog-content" :class="{ 'show-overflow': overflow }">
@@ -36,10 +42,20 @@
     overflow-x: visible;
     overflow-y: visible;
   }
+  .xen-dialog-back .xen-button {
+    padding: 8px;
+    margin-right: 8px;
+  }
+  .xen-dialog-back,
+  h3 {
+    margin: 0;
+    /*display: inline-block;*/
+    vertical-align: middle;
+  }
 </style>
 
 <script>
-  import MaterialButton from './Button.vue'
+  import XenButton from './Button.vue'
   import MaterialCard from './Card.vue'
   import Toolbar from './Toolbar.vue'
   import ScrollHelper from './classes/ScrollHelper'
@@ -51,7 +67,7 @@
 
     // Components
     components: {
-      MaterialButton,
+      XenButton,
       MaterialCard,
       Toolbar
     },
@@ -69,10 +85,19 @@
       'primary'
     ],
 
+    data () {
+      return {
+        showDialog: this.show || false
+      }
+    },
+
     mounted () {
       window.onpopstate = (event) => {
-        if (this.show) {
-          this.hideDialog()
+        if (this.showDialog) {
+          this.showDialog = false
+          this.$emit('hide', this.showDialog)
+        } else {
+          this.showDialog = true
         }
       }
     },
@@ -80,7 +105,7 @@
     // Methods
     methods: {
       hideDialog () {
-        this.$emit('hide')
+        this.$bus.$emit('back')
       }
     },
 
@@ -88,13 +113,29 @@
     watch: {
       'show': {
         handler: function (val, oldVal) {
+          this.showDialog = val
           if (val) {
             ScrollHelper.disable()
+            window.history.pushState({}, 'dialog', document.location)
+          } else {
+            ScrollHelper.enable()
+            // window.history.back()
+          }
+        }
+      },
+
+      'showDialog': {
+        handler: function (val, oldVal) {
+          if (val) {
+            ScrollHelper.disable()
+            // window.history.pushState({}, 'dialog', document.location)
           } else {
             ScrollHelper.enable()
           }
+          // this.$emit('hide', this.showDialog)
         }
       }
+
     }
 
   }

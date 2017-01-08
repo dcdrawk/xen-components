@@ -79,6 +79,7 @@ export default {
       this.index = index
       this.scrollTabs(index)
       this.updateBar(index)
+      this.$emit('change', key)
     },
 
     // Find the selected tab, set it as active

@@ -9,7 +9,7 @@
     margin: 0;
   }
 
-  span {    
+  span {
     color: $primary-text;
   }
   .xen-input-border {
@@ -23,7 +23,7 @@
     &.xen-theme-red {
       background-color: $clr-red;
     }
-    
+
   }
 
   label {
@@ -83,7 +83,7 @@
   text-overflow: ellipsis;
   height: 28px;
   overflow-x: hidden;
-  
+
   i {
     position: absolute;
     right: 4px;
@@ -127,7 +127,7 @@
   &:hover {
     background-color: #EEEEEE;
   }
-  
+
 }
 
 .xen-select-backdrop {
@@ -136,7 +136,7 @@
   width: 100vw;
   top: 0;
   left: 0;
-  z-index: 5;
+  z-index: 10;
 }
 
 .xen-select-container.focus {

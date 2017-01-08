@@ -24,7 +24,7 @@
 </template>
 
 <style lang="scss">
-  @import './styles/select'
+  @import './styles/select';
 </style>
 
 <script>
@@ -88,20 +88,30 @@
       },
 
       closeSelect () {
-        this.open = false
-        ScrollHelper.enable()
-        setTimeout(() => {
-          document.body.removeChild(this.$refs.container)
-        }, 300)
+        this.$nextTick(() => {
+          if (this.open && !this.closing) {
+            this.open = false
+            this.closing = true
+            ScrollHelper.enable()
+            setTimeout(() => {
+              document.body.removeChild(this.$refs.container)
+              this.open = false
+              this.closing = false
+            }, 300)
+          }
+        })
         // document.querySelector('html').classList.remove('disable-scroll')
       },
 
       selectOption (option, key, index) {
-        this.selectValue = this.optionKey ? option[this.optionKey] : option
-        // this.selectedIndex = index || key
-        this.selectedIndex = index || index === 0 ? index : key
-        this.closeSelect()
-        ScrollHelper.enable()
+        this.$nextTick(() => {
+          if (this.open && !this.closing) {
+            this.selectValue = this.optionKey ? option[this.optionKey] : option
+            this.selectedIndex = index || index === 0 ? index : key
+            this.closeSelect()
+            ScrollHelper.enable()
+          }
+        })
       },
 
       getSelectedIndex () {
@@ -132,7 +142,8 @@
         selectedIndex: 0,
         selectValue: this.value || '',
         width: 200,
-        focused: false
+        focused: false,
+        closing: false
       }
     },
 
@@ -164,8 +175,10 @@
       },
       'options': {
         handler: function (val, oldVal) {
-          if (this.value) {
+          if (this.selectValue && this.selectValue !== '') {
             this.getSelectedIndex()
+          } else {
+            this.selectedIndex = 0
           }
           // this.$emit('input', this.selectValue)
         }

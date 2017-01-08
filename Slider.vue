@@ -1,5 +1,6 @@
 <template>
-  <div ref="container" class="xen-slider-container" v-bind:class="{ 'has-value': hasValue, 'focus': focused }"  v-focus="focused" @focus="focused = true"  @blur="focused = false" @mousedown="clickSlider($event)">
+  <div ref="container" class="xen-slider-container" v-bind:class="{ 'has-value': hasValue, 'focus': focused }"
+  v-focus="focused" @focus="focused = true"  @blur="focused = false" @mouseup="clickSlider($event)">
     <div ref="slider" class="xen-slider"></div>
     <div ref="circle" class="xen-slider-circle-container" :class="{ 'has-value': hasValue, 'focus': focused }">
       <div class="xen-slider-circle"></div>
@@ -20,7 +21,7 @@
 <script>
   import { focus } from 'vue-focus'
   import Hammer from 'hammerjs'
-  
+
   export default {
     // Directives
     directives: { focus: focus },
@@ -52,16 +53,19 @@
     // Methods
     methods: {
       clickSlider (ev) {
-        let value = (ev.clientX - this.$refs.container.offsetLeft - 16) / this.$refs.slider.clientWidth * (+this.maxValue - +this.minValue) + +this.minValue
-
+        let rectObject = this.$refs.container.getBoundingClientRect()
+        let value = (ev.clientX - rectObject.left - 16) / this.$refs.slider.clientWidth * (+this.maxValue - +this.minValue) + +this.minValue
         if (value > this.minValue && value < this.maxValue) {
-          this.sliderValue = (ev.clientX - this.$refs.container.offsetLeft - 16) / this.$refs.slider.clientWidth * (+this.maxValue - +this.minValue) + +this.minValue
+          console.log('1')
+          this.sliderValue = (ev.clientX - rectObject.left - 16) / this.$refs.slider.clientWidth * (+this.maxValue - +this.minValue) + +this.minValue
         } else if (value <= this.minValue) {
+          console.log('2')
           this.sliderValue = this.minValue
         } else {
+          console.log('3')
           this.sliderValue = this.maxValue
         }
-        this.translate = ev.clientX - this.$refs.container.offsetLeft - 16
+        this.translate = ev.clientX - rectObject.left - 16
         if (this.steps) {
           this.stepSnap(this.sliderValue)
         }
@@ -126,6 +130,8 @@
 
     // Mounted
     mounted () {
+      console.log('mounted')
+      console.log(this.value)
       var circle = new Hammer(this.$refs.circle)
       setTimeout(() => {
         if (this.steps) {
@@ -135,6 +141,7 @@
         this.translate = (this.sliderValue / (this.maxValue - this.minValue)) * this.$refs.slider.clientWidth
         this.setPosition(this.sliderValue / (this.maxValue - this.minValue))
         this.hasValue = this.sliderValue / (this.maxValue - this.minValue)
+        console.log(this.translate)
       }, 0)
 
       circle.on('pan', (ev) => {
@@ -166,6 +173,7 @@
     watch: {
       'sliderValue': {
         handler: function (val, oldVal) {
+          // console.log(val)
           if (val !== oldVal) {
             setTimeout(() => {
               this.setPosition((this.sliderValue - this.minValue) / (this.maxValue - this.minValue))
