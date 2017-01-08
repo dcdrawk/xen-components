@@ -63,9 +63,11 @@ export default {
   // Methods
   methods: {
     autosize () {
-      setTimeout(() => {
-        autosize(this.$refs.autosize.childNodes)
-      }, 0)
+      if (this.$refs.autosize) {
+        setTimeout(() => {
+          autosize(this.$refs.autosize.childNodes)
+        }, 0)
+      }
     }
   },
 

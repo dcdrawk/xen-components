@@ -92,20 +92,31 @@
     },
 
     mounted () {
-      window.onpopstate = (event) => {
-        if (this.showDialog) {
-          this.showDialog = false
-          this.$emit('hide', this.showDialog)
-        } else {
-          this.showDialog = true
-        }
-      }
+      this.updatedPopstate()
     },
 
     // Methods
     methods: {
       hideDialog () {
         this.$bus.$emit('back')
+      },
+
+      updatedPopstate () {
+        window.onpopstate = (event) => {
+          // console.log(event)
+          console.log('pop', this.title)
+          if (this.showDialog) {
+            this.showDialog = false
+            this.$emit('hide', this.showDialog)
+          } else {
+            if (event.state) {
+              console.log(event.state)
+              if (event.state.title === this.title) {
+                this.showDialog = true
+              }
+            }
+          }
+        }
       }
     },
 
@@ -114,25 +125,20 @@
       'show': {
         handler: function (val, oldVal) {
           this.showDialog = val
-          if (val) {
-            ScrollHelper.disable()
-            window.history.pushState({}, 'dialog', document.location)
-          } else {
-            ScrollHelper.enable()
-            // window.history.back()
-          }
+          console.log('show dialog', val)
         }
       },
 
       'showDialog': {
         handler: function (val, oldVal) {
+          console.log('showing the dialog...', this.title)
           if (val) {
             ScrollHelper.disable()
-            // window.history.pushState({}, 'dialog', document.location)
+            window.history.pushState({title: this.title}, 'dialog', document.location)
+            this.updatedPopstate()
           } else {
             ScrollHelper.enable()
           }
-          // this.$emit('hide', this.showDialog)
         }
       }
 
