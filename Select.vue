@@ -8,6 +8,9 @@
       <span class="xen-placeholder" v-if="placeholder && !selectValue">{{ placeholder }}</span>
       <i class="material-icons">arrow_drop_down</i>
       <div class="xen-input-border"></div>
+      <transition name="input-focus">
+        <div v-if="focused" class="xen-focus-border" :class="{ 'xen-theme-red': error }" ></div>
+      </transition>
     </div>
     <transition name="fade">
       <div class="xen-select-option-container" v-show="open" ref="container" v-focus="focused" @focus="focused = true" @blur="focused = false">
@@ -44,7 +47,8 @@
       'placeholder',
       'dense',
       'optionKey',
-      'disabled'
+      'disabled',
+      'error'
     ],
 
     // Methods
@@ -61,7 +65,7 @@
         ScrollHelper.disable()
         document.body.appendChild(this.$refs.container)
         setTimeout(() => {
-          this.$refs.container.style.width = this.$refs.select.clientWidth + 16 + 'px'
+          this.$refs.container.style.width = this.$refs.select.clientWidth + 32 + 'px'
           let optionHeight = this.dense ? 40 : 48
           let container = this.$refs.container
           let selectRect = this.$refs.select.getBoundingClientRect()
@@ -82,7 +86,7 @@
           }
 
           container.scrollTop = scrollOffset
-          container.style.transform = `translate3d(${selectRect.left - 12}px, ${totalYOffset}px, 0)`
+          container.style.transform = `translate3d(${selectRect.left - 16}px, ${totalYOffset + 1}px, 0)`
         }
         , 0)
       },
@@ -151,7 +155,7 @@
     mounted () {
       this.getSelectedIndex()
       setTimeout(() => {
-        this.$refs.container.style.width = this.$refs.select.clientWidth + 16 + 'px'
+        this.$refs.container.style.width = this.$refs.select.clientWidth + 48 + 'px'
       })
     },
 

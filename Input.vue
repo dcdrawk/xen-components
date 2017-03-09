@@ -14,6 +14,10 @@
       ref="input" v-model="dataValue" v-focus="focused" @focus="focused = true" @blur="focused = false" :placeholder="placeholder" :name="name" v-if="type === 'password'" type="password" :disabled="disabled"/>
     </div>
     <div class="xen-input-border" :class="{ 'xen-theme-red': error }" ></div>
+    <transition name="input-focus">
+      <div v-if="focused" class="xen-focus-border" :class="{ 'xen-theme-red': error }" ></div>
+    </transition>
+
     <span v-if="error" class="xen-input-error xen-color-red">{{error}}</span>
   </div>
 </template>

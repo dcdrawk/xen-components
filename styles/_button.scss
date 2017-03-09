@@ -26,6 +26,10 @@
     cursor: not-allowed;
     opacity: .54;
     pointer-events: none;
+    button {
+      cursor: not-allowed;
+      pointer-events: none;
+    }
   }
 
   &.flat {
