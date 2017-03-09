@@ -85,7 +85,7 @@
       // },
       'value': {
         handler: function (val, oldVal) {
-          this.inputVal = val
+          this.dataValue = val
           // if (typeof (val) === 'string' || typeof (val) === 'undefined' || !isNaN(val)) {
           //   this.inputValue = val
           // }

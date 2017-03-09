@@ -1,6 +1,6 @@
 <template>
     <!-- <xen-ripple v-cloak> -->
-    <div class="xen-list-item">        
+    <div class="xen-list-item custom-list-item">
       <slot></slot>
     </div>
     <!-- </xen-ripple> -->
@@ -8,13 +8,13 @@
 
 <style lang="scss">
 .xen-list .xen-list-item.custom-list-item {
-  padding: 8px;
+  padding: 8px 16px;
 }
 
 </style>
 
 <script>
-  import XenRipple from '../xen/Ripple'
+  import XenRipple from './Ripple'
 
   export default {
     // Name

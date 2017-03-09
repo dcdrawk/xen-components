@@ -1,8 +1,8 @@
 <template>
   <div class="xen-page-toolbar">
     <xen-toolbar class="toolbar">
-      <xen-icon-button class="xen-menu-button" :class="{}"icon="menu"
-      @click.native="$bus.$emit('toggle-sidenav');">menu</xen-icon-button>
+      <xen-icon-button class="xen-menu-button" :class="{}" icon="menu"
+      @click.native="toggle()">menu</xen-icon-button>
       <span class="title xen-page-title">{{ title || 'Page Title' }}</span>
     </xen-toolbar>
   </div>
@@ -61,6 +61,14 @@
     components: {
       XenToolbar,
       XenIconButton
+    },
+
+    methods: {
+      toggle () {
+        console.log('toggle')
+        console.log(this.$bus)
+        this.$bus.$emit('toggle-sidenav')
+      }
     }
 
   }

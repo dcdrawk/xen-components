@@ -6,7 +6,7 @@
 
 <style lang="scss">
   .xen-card-content {
-    padding: 16px 16px 0 16px;
+    padding: 16px 16px 16px 16px;
 
     &.xen-no-margin {
       margin: 0;

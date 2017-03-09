@@ -34,22 +34,23 @@
 
     // Methods
     methods: {
-      toggleCheckbox (value) {
-        if (value === true || value === false) {
-          this.checkboxValue = value
-        } else {
-          this.checkboxValue = !this.checkboxValue
-        }
+      toggleCheckbox () {
+        this.$emit('input', !this.value)
+        // if (value === true || value === false) {
+        //   this.checkboxValue = value
+        // } else {
+        //   this.checkboxValue = !this.checkboxValue
+        // }
       }
     },
 
     // Watch
     watch: {
-      'checkboxValue': {
-        handler: function (val, oldVal) {
-          this.$emit('input', this.checkboxValue)
-        }
-      },
+      // 'checkboxValue': {
+      //   handler: function (val, oldVal) {
+      //     this.$emit('input', this.checkboxValue)
+      //   }
+      // },
       'value': {
         handler: function (val, oldVal) {
           this.checkboxValue = val
