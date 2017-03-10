@@ -61,9 +61,11 @@
 
     // Mounted
     mounted () {
-      // if (this.value || this.value === 0) {
-      //   this.inputValue = this.type === 'number' ? window.parseInt(this.value) : this.value
-      // }
+      if (this.value || this.value === 0) {
+        this.dataValue = this.type === 'number'
+        ? window.parseInt(this.value)
+        : this.value
+      }
     },
 
     created () {
