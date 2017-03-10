@@ -3,7 +3,7 @@
     <!--Tab Items-->
     <div class="xen-tab-items-container" :class="theme ? 'xen-theme-' + theme : ''">
       <div ref="tabItems" class="xen-tab-items">
-        <xen-button class="xen-tab-button" v-for="(tab, key, index) in $slots" @click.native="selectTab(key, index)" :class="{'active': active === key}" v-show="key !== 'default'" ref="tabs" :xen-tab-name="key">
+        <xen-button class="xen-tab-button" v-for="(tab, key, index) in $slots" :key="key" @click.native="selectTab(key, index)" :class="{'active': active === key}" v-show="key !== 'default'" ref="tabs" :xen-tab-name="key">
           <i v-show="icons" class="xen-tab-icon material-icons">
             {{ iconValues[key] }}
           </i>
@@ -59,16 +59,21 @@ export default {
 
   // Mounted
   mounted () {
-    this.$nextTick(() => {
+    // this.$nextTick(() => {
+    setTimeout(() => {
       this.offset = 0
       this.active = this.defaultTab
       if (this.icons) {
         this.getIcons()
       } else {
-        this.updateBar(this.active)
+        // this.updateBar(this.active)
       }
       this.hammerTabs()
-    })
+    }, 0)
+
+    setTimeout(() => {
+      this.updateBar(this.active)
+    }, 150)
   },
 
   // Methods
@@ -108,8 +113,10 @@ export default {
       // this.$nextTick(() => {
       if (this.$refs.tabs) {
         var button = this.getActiveTab(this.active)
+        console.log(button)
         var tabBar = this.$refs['active-tab-bar']
         this.scale = button.clientWidth / 100
+        console.log(this.scale)
         this.translate = 0
         for (var i in this.$refs.tabs) {
           var item = this.$refs.tabs[i]
@@ -216,5 +223,8 @@ export default {
 </script>
 
 <style lang="scss">
-  @import './styles/tabs';
+@import './styles/tabs';
+// .xen-tab-button {
+//   font-family: arial;
+// }
 </style>

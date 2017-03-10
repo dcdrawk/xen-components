@@ -14,6 +14,7 @@
 <script>
 import autosize from 'autosize'
 import { focus } from 'vue-focus'
+import debounce from 'debounce'
 
 export default {
   // Directives
@@ -31,7 +32,8 @@ export default {
     'placeholder',
     'rows',
     'autoGrow',
-    'disabled'
+    'disabled',
+    'debounce'
   ],
 
   // Data
@@ -41,6 +43,11 @@ export default {
       focused: false,
       inputValue: this.value || ''
     }
+  },
+
+  created () {
+    console.log(this.debounce)
+    this.handleInputChange = debounce(this.handleInputChange, this.debounce || 0)
   },
 
   mounted () {
@@ -62,7 +69,12 @@ export default {
 
   // Methods
   methods: {
+    handleInputChange () {
+      this.$emit('input', this.inputValue)
+    },
+
     autosize () {
+      console.log('autosize...')
       if (this.$refs.autosize) {
         setTimeout(() => {
           autosize(this.$refs.autosize.childNodes)
@@ -77,21 +89,22 @@ export default {
       handler: function (val, oldVal) {
         if (val || val === '' || !isNaN(val)) {
           if (val !== this.value || oldVal) {
-            // this.autosize()
-            this.$emit('input', this.inputValue)
+            this.handleInputChange()
           }
         }
       }
     },
     'value': {
       handler: function (val, oldVal) {
+        console.log('value updated...')
         this.inputValue = val
         if (typeof this.autoGrow === 'undefined' || this.autoGrow !== false) {
           setTimeout(() => {
             this.autosize()
           }, 0)
         }
-      }
+      },
+      immediate: true
     }
   }
 }

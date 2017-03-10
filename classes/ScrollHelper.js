@@ -24,7 +24,9 @@ class ScrollHelper {
   }
 
   static disable () {
+    console.log('start disable scroll')
     if (document.body.scrollHeight > window.innerHeight) {
+      console.log('scroll height is larger than window')
       this.disableScroll = true
       this.scrollTop = document.body.scrollTop
       document.body.style.position = 'relative'

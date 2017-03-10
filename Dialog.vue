@@ -11,7 +11,7 @@
 
         <h3 class="xen-dialog-title title" :class="{ 'xen-theme-primary': primary }">
           <!-- Dialog Title -->
-          <xen-button class="xen-dialog-back" @click.native="$bus.$emit('back')">
+          <xen-button v-if="back" class="xen-dialog-back" @click.native="$bus.$emit('back')">
             <i class="material-icons">keyboard_arrow_left</i>
           </xen-button>
           <span>{{ title }}</span>
@@ -82,7 +82,8 @@
       'large',
       'overflow',
       'fullscreen',
-      'primary'
+      'primary',
+      'back'
     ],
 
     data () {
@@ -104,13 +105,13 @@
       updatedPopstate () {
         window.onpopstate = (event) => {
           // console.log(event)
-          console.log('pop', this.title)
+          // console.log('pop', this.title)
           if (this.showDialog) {
             this.showDialog = false
             this.$emit('hide', this.showDialog)
           } else {
             if (event.state) {
-              console.log(event.state)
+              // console.log(event.state)
               if (event.state.title === this.title) {
                 this.showDialog = true
               }

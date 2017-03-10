@@ -37,7 +37,7 @@
 
     .xen-dialog-content {
       // margin: 16px 0 0 0;
-      padding: 16px 24px 24px 24px;
+      padding: 20px 24px 24px 24px;
       max-height: calc(80vh - 56px);
       overflow-x: hidden;
       overflow-y: auto;
@@ -49,11 +49,14 @@
     }
 
     &.has-actions .xen-dialog-content {
+      // max-height: calc(80vh - 68px - 44px);
       max-height: calc(80vh - 68px - 44px);
     }
 
     .xen-dialog-title {
-      padding: 12px 12px 8px 12px;
+      padding: 12px 12px 8px;
+      // padding: 24px 24px 0px 24px;
+      // padding: 12px 12px 8px 12px;
       // padding: 0;
       // background-color: #fafafa;
 
@@ -151,7 +154,7 @@
       position: absolute;
     }
     &.xen-dialog.has-actions .xen-dialog-content {
-      max-height: calc(100vh - 68px - 44px);
+      max-height: calc(100vh - 68px - 36px);
     }
   }
 }

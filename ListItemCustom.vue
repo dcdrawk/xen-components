@@ -1,9 +1,9 @@
 <template>
-    <!-- <xen-ripple v-cloak> -->
-    <div class="xen-list-item custom-list-item">
-      <slot></slot>
-    </div>
-    <!-- </xen-ripple> -->
+    <xen-ripple v-cloak>
+      <div class="xen-list-item custom-list-item">
+        <slot></slot>
+      </div>
+    </xen-ripple>
 </template>
 
 <style lang="scss">

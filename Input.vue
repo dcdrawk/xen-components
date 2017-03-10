@@ -1,5 +1,5 @@
 <template>
-  <div class="xen-input-container" v-bind:class="{ 'has-value': value || value === 0, 'focus': focused, 'has-error-msg': error, 'xen-disabled': disabled }">
+  <div class="xen-input-container" v-bind:class="{ 'has-value': dataValue || dataValue === 0, 'focus': focused, 'has-error-msg': error, 'xen-disabled': disabled }">
     <!--<input type="text" :name="name" v-model="inputValue" @input="handleInputChange()"/>-->
     <label :class="{ 'xen-color-red': error}" v-if="label">{{label}}</label>
     <div>
@@ -29,7 +29,7 @@
 <script>
   import { focus } from 'vue-focus'
   // import { find, propEq } from 'ramda'
-  // import debounce from 'debounce'
+  import debounce from 'debounce'
 
   export default {
 
@@ -67,7 +67,7 @@
     },
 
     created () {
-      // this.handleInputChange = debounce(this.handleInputChange, this.debounce || 0)
+      this.handleInputChange = debounce(this.handleInputChange, this.debounce || 0)
     },
 
     methods: {
