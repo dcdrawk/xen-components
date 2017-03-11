@@ -5,7 +5,7 @@
     <div>
       <input
       @input="handleInputChange()"
-      ref="input" v-model="dataValue" v-focus="focused" @focus="focused = true" @blur="focused = false" :placeholder="placeholder" :name="name" v-if="type === 'text' || !type" type="text" :disabled="disabled"/>
+      ref="input" v-model="dataValue" v-focus="focused" @focus="focused = true" @blur="focused = false" :placeholder="placeholder" :name="name" v-if="type === 'text' || !type" type="text" :disabled="disabled" :autocapitalize="autocapitalize"/>
       <input
       @input="handleInputChange()"
       ref="input" v-model="dataValue" v-focus="focused" @focus="focused = true" @blur="focused = false" :placeholder="placeholder" :name="name" v-if="type === 'number'" type="number" :disabled="disabled"/>
@@ -48,7 +48,8 @@
       'error',
       'placeholder',
       'disabled',
-      'debounce'
+      'debounce',
+      'autocapitalize'
     ],
 
     // Data

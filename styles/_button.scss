@@ -107,7 +107,8 @@
   overflow: hidden;
 
   &.raised {
-    @extend .whiteframe-z3;
+    // @extend .whiteframe-z2;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   }
 
   &.disabled {

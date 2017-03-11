@@ -113,10 +113,10 @@ export default {
       // this.$nextTick(() => {
       if (this.$refs.tabs) {
         var button = this.getActiveTab(this.active)
-        console.log(button)
+        // console.log(button)
         var tabBar = this.$refs['active-tab-bar']
         this.scale = button.clientWidth / 100
-        console.log(this.scale)
+        // console.log(this.scale)
         this.translate = 0
         for (var i in this.$refs.tabs) {
           var item = this.$refs.tabs[i]
