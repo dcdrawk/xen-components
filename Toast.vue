@@ -2,7 +2,7 @@
   <transition name="toast">
     <div class="xen-toast-container" v-if="dataShow">
       <div class="xen-toast">
-        <span>{{ text }}</span>
+        <span>{{ dataText }}</span>
         <xen-button v-if="action" @click.native="action">{{ actionText }}</xen-button>
       </div>
     </div>

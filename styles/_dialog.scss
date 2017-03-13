@@ -55,6 +55,10 @@
 
     .xen-dialog-title {
       padding: 12px 12px 8px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      // margin-top: 4px;
       // padding: 24px 24px 0px 24px;
       // padding: 12px 12px 8px 12px;
       // padding: 0;
@@ -151,7 +155,7 @@
     left: 0;
     margin: 0;
     .xen-dialog-actions-container {
-      position: absolute;
+      position: fixed;
     }
     &.xen-dialog.has-actions .xen-dialog-content {
       max-height: calc(100vh - 68px - 36px);

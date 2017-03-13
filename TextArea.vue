@@ -46,7 +46,7 @@ export default {
   },
 
   created () {
-    console.log(this.debounce)
+    // console.log(this.debounce)
     this.handleInputChange = debounce(this.handleInputChange, this.debounce || 0)
   },
 
@@ -74,7 +74,7 @@ export default {
     },
 
     autosize () {
-      console.log('autosize...')
+      // console.log('autosize...')
       if (this.$refs.autosize) {
         setTimeout(() => {
           autosize(this.$refs.autosize.childNodes)
@@ -96,7 +96,7 @@ export default {
     },
     'value': {
       handler: function (val, oldVal) {
-        console.log('value updated...')
+        // console.log('value updated...')
         this.inputValue = val
         if (typeof this.autoGrow === 'undefined' || this.autoGrow !== false) {
           setTimeout(() => {

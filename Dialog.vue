@@ -126,13 +126,13 @@
       'show': {
         handler: function (val, oldVal) {
           this.showDialog = val
-          console.log('show dialog', val)
+          // console.log('show dialog', val)
         }
       },
 
       'showDialog': {
         handler: function (val, oldVal) {
-          console.log('showing the dialog...', this.title)
+          // console.log('showing the dialog...', this.title)
           if (val) {
             ScrollHelper.disable()
             window.history.pushState({title: this.title}, 'dialog', document.location)

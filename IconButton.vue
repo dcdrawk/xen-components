@@ -1,7 +1,7 @@
 <template>
   <!-- <div class="xen-button-container" > -->
-  <span class="xen-icon-button-container" :class="{ 'raised': raised, 'flat': !raised, 'disabled': disabled, 'large': large }">
-    <xen-ripple :round="true">
+  <span class="xen-icon-button-container" :class="{ 'raised': raised, 'flat': !raised, 'disabled': disabled, 'large': large, 'square': square }">
+    <xen-ripple :round="true" :center="center">
       <span ref="button" class="xen-icon-button-wrapper" v-bind:class="{ 'primary': primary, 'secondary': secondary, 'raised': raised, 'flat': !raised, 'square': square }">
         <i class="material-icons">{{ icon }}</i>
       </span>
@@ -28,7 +28,8 @@
       'icon',
       'square',
       'disabled',
-      'large'
+      'large',
+      'center'
     ],
 
     // Components

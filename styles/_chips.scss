@@ -1,10 +1,13 @@
 @import './variables';
 
 .xen-chip-container {
+  position: relative;
   border-bottom: 1px solid rgba(0,0,0,.12);
   display: flex;
   flex-wrap: wrap;
   padding: 4px 0;
+  margin-bottom: 32px;
+  min-height: 50px;
 
   input {
     background-color: transparent;
@@ -17,22 +20,62 @@
     padding: 4px 0;
   }
 
-  &.focused {
-    border-bottom: 2px solid $primary-color;
-    margin-bottom: -1px;
+  label {
+    display: block;
+    position: absolute;
+    transform: translateY(20px);
+    transition: $transition-timing;
+    color: rgba(0, 0, 0, .54);
+    pointer-events: none;
+    font-size: 16px;
+    transform-origin: 0%;
   }
-  
+
+  &.focused,
+  &.has-value {
+    label {
+      // color: red;
+      transform: translateY(-16px) translateX(0) scale(.75);
+    }
+  }
+
+  &.focused {
+    // border-bottom: 2px solid $primary-color;
+    // margin-bottom: -1px;
+
+    label {
+      // color: $primary-color;
+      // color: red;
+    }
+  }
+
+  &.xen-label {
+    margin-top: 32px;
+  }
+
+  .xen-focus-border {
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    background-color: currentColor;
+    bottom: 0px;
+    &.xen-theme-red {
+      background-color: $clr-red;
+    }
+  }
+
 }
 
 .xen-chip {
   align-items: center;
+  color: rgba(0, 0, 0, .87);
   background-color: rgb(224,224,224);
   border-radius: 16px;
   display: flex;
   font-size: 13px;
   height: 32px;
   line-height: 32px;
-  margin: 4px 8px 4px 0;  
+  margin: 4px 8px 4px 0;
   padding: 0 12px;
 
   span {

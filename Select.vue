@@ -21,7 +21,7 @@
       </div>
     </transition>
 
-    <div class="xen-select-backdrop" v-if="open" @click="closeSelect()"></div>
+    <div ref="backdrop" class="xen-select-backdrop" v-show="open" @click="closeSelect()"></div>
 
   </div>
 </template>
@@ -63,6 +63,7 @@
       openSelect () {
         this.open = true
         ScrollHelper.disable()
+        document.body.appendChild(this.$refs.backdrop)
         document.body.appendChild(this.$refs.container)
         setTimeout(() => {
           this.$refs.container.style.width = this.$refs.select.clientWidth + 32 + 'px'
@@ -99,6 +100,7 @@
             ScrollHelper.enable()
             setTimeout(() => {
               document.body.removeChild(this.$refs.container)
+              document.body.removeChild(this.$refs.backdrop)
               this.open = false
               this.closing = false
             }, 300)

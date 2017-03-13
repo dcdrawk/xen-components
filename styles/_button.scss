@@ -17,7 +17,7 @@
   transition: all 375ms $swift-in;
   user-select: none;
   z-index: 1;
-
+  text-align: center;
   &:hover {
     background-color: rgba(0,0,0,.08);
   }
@@ -148,6 +148,14 @@
     width: 56px;
   }
 
+  &.square {
+    // height: 48px;
+    // width: 48px;
+    border-radius: 2px;
+    -webkit-mask-image: none;
+
+  }
+
 }
 
 .xen-icon-button-wrapper {
@@ -161,6 +169,14 @@
     margin: auto;
     pointer-events: none;
     user-select: none;
+  }
+
+  &.square {
+    // height: 48px;
+    // width: 48px;
+    border-radius: 2px;
+    -webkit-mask-image: none;
+
   }
 
 }
