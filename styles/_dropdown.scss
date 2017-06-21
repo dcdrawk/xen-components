@@ -12,6 +12,7 @@
   opacity: 0;
   z-index: 10;
   top: 0;
+  left: 0;
 
   &.closed {
     opacity: 0;
@@ -22,14 +23,14 @@
   }
 
   .list-item {
-    transition: all .25s $swift-in;
+    transition: opacity .25s $swift-in;
 
     &:hover {
       background-color: rgba(0,0,0,.12);
     }
 
   }
-  
+
 }
 
 .xen-dropdown-backdrop {
@@ -38,5 +39,5 @@
   width: 100vw;
   top: 0;
   left: 0;
-  z-index: 0;
+  z-index: 5;
 }

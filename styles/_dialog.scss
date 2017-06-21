@@ -54,7 +54,8 @@
     }
 
     .xen-dialog-title {
-      padding: 12px 12px 8px;
+      // padding: 12px 12px 8px;
+      padding: 12px 24px 8px;
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
@@ -147,6 +148,9 @@
 }
 
 .xen-dialog.fullscreen {
+  .xen-dialog-title {
+    padding: 12px 12px 8px;
+  }
   @media only screen and (max-width: $small-breakpoint) {
     min-height: 100vh;
     min-width: 100%;

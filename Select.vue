@@ -47,6 +47,7 @@
       'placeholder',
       'dense',
       'optionKey',
+      'optionValue',
       'disabled',
       'error'
     ],
@@ -112,6 +113,10 @@
       selectOption (option, key, index) {
         this.$nextTick(() => {
           if (this.open && !this.closing) {
+            if (this.optionValue) {
+              console.log('selected')
+              this.$emit('select', option[this.optionValue])
+            }
             this.selectValue = this.optionKey ? option[this.optionKey] : option
             this.selectedIndex = index || index === 0 ? index : key
             this.closeSelect()
